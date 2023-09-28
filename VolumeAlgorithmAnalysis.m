@@ -2,7 +2,7 @@ clear all
 close all
 
 %Specify Excel file that contains the raw data
-rawDataArray = readmatrix("day19_trial1.csv");
+rawDataArray = readmatrix("day19_trial8.csv");
 % disp(rawDataArray(1,:));
 
 % Extract the X/Y voltages and populate a matrix
@@ -44,6 +44,7 @@ plot(angleMatrix(:,1),angleMatrix(:,2));
 title('Unfiltered HMS angle');
 xlabel('time in sec');
 ylabel('Angle in degrees');
+grid on;
 axis([min(angleMatrix(:,1)) max(angleMatrix(:,1)) min(angleMatrix(:,2)) max(angleMatrix(:,2))]);
 subplot(2,1,2);
 %plot(finalFAM(:,1),finalFAM(:,2),angleMatrix(:,1),angleMatrix(:,2));
@@ -52,6 +53,7 @@ axis([min(angleMatrix(:,1)) max(angleMatrix(:,1)) min(angleMatrix(:,2)) max(angl
 title('Filtered HMS angle');
 xlabel('time in sec');
 ylabel('Angle in degrees');
+grid on;
 %legend('Filtered','Unfiltered');
 
 % We now have the handle angle processed as it would be as it is evaluated
