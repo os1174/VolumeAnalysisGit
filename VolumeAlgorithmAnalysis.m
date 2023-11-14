@@ -4,18 +4,18 @@ close all
 %GET TIMESTAMP OF PEAK AND ACTUAL POSITION WHEN IT HIT PEAKS
 
 %Specify Excel file that contains the raw data
-rawDataArray = readmatrix("Test-70-1.csv");
+rawDataArray = readmatrix("Test-11-10-1.csv");
 
 %Reading in txt file of protocol
-protocol(:,2) = fscanf(fopen('Test-70-1.txt'),'%f'); %readtable('Test-11-7.txt'); %
+protocol(:,2) = fscanf(fopen('Test-11-10-1.txt'),'%f'); %readtable('Test-11-7.txt'); %
 [r,c] = size(protocol);
 i = 1;
-while i < r
+while i <= r
     protocol(i,1) = (i-1)*0.02;         % 0.02 = (50Hz)^-1
     i = i + 1;
 end
 
-%%% When changing excel files, change lines 6 and 10 of main and line 88 of pumping
+%%% When changing excel files, change lines 7 and 10 of main and line 88 of pumping
 
 
 % Extract the X/Y voltages and populate a matrix
@@ -78,7 +78,7 @@ grid on;
 
 %% Comparing Outputs on the Same Graph
 figure(4);
-plot(angleMatrix(:,1),angleMatrix(:,2),'-',protocol(:,1),protocol(:,2));
+plot(finalFAM(:,1),finalFAM(:,2),'-',protocol(:,1),protocol(:,2));
 title('Unfiltered HMS angle');
 xlabel('time in sec');
 ylabel('Angle in degrees');
