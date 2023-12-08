@@ -24,17 +24,26 @@ filterCoefficients = [-0.000367957739676402;-0.000992862025309093;-0.00125727023
     -0.00125727023156783;-0.000992862025309093;-0.000367957739676402];
 
 [r,c] = size(angleMatrix);
-finalFAM = zeros(r,2);
-finalFAM(:,1) = angleMatrix(:,1);
+%Prefill the 51 point angle buffer.  This will behave as though the handle
+% was in the first measured position for the previous 50 samples
+paddedAngleMatrix = zeros(r + 51 , c);
+paddedAngleMatrix(1:51, 2) = angleMatrix(2,2);
+paddedAngleMatrix(1:51, 1) = angleMatrix(2,1);
+paddedAngleMatrix(52:r+51,:) = angleMatrix;
 
-i = 51;
+finalFAM = zeros(r,2);
+finalFAM(:,1) = angleMatrix(:,1); % Get the time stamps for the unfiltered angles
+
+% The filter works with 51 points to calculate the filtered value for 
+% finalFAM(i).  The oldest point is located at i
+i = 1;
 while i < r
     angleSum = 0;
-        for k = 1:51
-            angleSum = angleSum + angleMatrix(i-k+1, 2) * filterCoefficients(k);
+        for k = 51:-1:1
+            angleSum = angleSum + paddedAngleMatrix(i+51-k, 2) * filterCoefficients(k);
         end
-    finalFAM(i-25,2) = angleSum;
+    finalFAM(i,2) = angleSum;
     i = i + 1;
 end
-
+plot(finalFAM(:,2));
 end

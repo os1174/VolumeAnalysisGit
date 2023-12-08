@@ -1,0 +1,15 @@
+
+
+ We are in the Priming Loop 
+We are in the fast pumping cluster
+Prime Distance 0.524
+    we are entering the volume loop   
+        Stopped pumping   -1
+We are in the fast pumping cluster
+Number of pumping strokes = 41
+handle movement in degrees 1643.505
+handle moving for (sec) 24.704
+Volume Event = 12.223
+  for time slot 14
+
+ We are in the Leak Rate Loop 

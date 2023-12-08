@@ -3,17 +3,26 @@ close all
 
 %GET TIMESTAMP OF PEAK AND ACTUAL POSITION WHEN IT HIT PEAKS
 
-%Specify Excel file that contains the raw data
-rawDataArray = readmatrix("Test-11-10-1.csv");
+%PUT DIGILENT CHANNEL 1 ON Y AND CHANNEL 2 ON X
 
-%Reading in txt file of protocol
-protocol(:,2) = fscanf(fopen('Test-11-10-1.txt'),'%f'); %readtable('Test-11-7.txt'); %
-[r,c] = size(protocol);
+%Specify Excel file that contains the raw data
+rawDataArray = readmatrix("BitnerPumpTest_3_Scope.csv");
+%Specify the sampling rate used by the system.  For example 102 = 102Hz
+desSampleRate = 10;
+
+%Reading in txt file of protocol (x,y,angle)
+protocol2 = fscanf(fopen('BitnerPumpTest_3_Protocol.txt'),'%f \n');
+%Add time stamps to the protocol data
+% protocol2 = protocol2';
+[r,c] = size(protocol2);
 i = 1;
+protocol = zeros(r, 2);
+protocol(:, 2) = protocol2(:, 1);
 while i <= r
-    protocol(i,1) = (i-1)*0.02;         % 0.02 = (50Hz)^-1
+    protocol(i,1) = (i-1)*(1/desSampleRate);         % 0.02 = (50Hz)^-1
     i = i + 1;
 end
+
 
 %%% When changing excel files, change lines 7 and 10 of main and line 88 of pumping
 
@@ -29,7 +38,7 @@ end
 % Digilent sampled faster than our expected sampling rate of 102Hz
 % downsample to create a data matrix which contains the voltages
 % we would get in real time
-desSampleRate = 50;                                                         %%%%%%%%%%%%%%%%%
+
 sampledDataMatrix = sampleRawData(rawDataArray, desSampleRate);
 % % % figure(2);
 % % % plot(sampledDataMatrix(:,1),sampledDataMatrix(:,2),sampledDataMatrix(:,1),sampledDataMatrix(:,3));
@@ -55,7 +64,7 @@ finalFAM = filterHMS(angleMatrix);
 figure(3);
 subplot(3,1,1);
 plot(angleMatrix(:,1),angleMatrix(:,2));
-title('Unfiltered HMS angle');
+title('Unfiltered HMS angle (O-Scope)');
 xlabel('time in sec');
 ylabel('Angle in degrees');
 grid on;
@@ -64,14 +73,14 @@ subplot(3,1,2);
 %plot(finalFAM(:,1),finalFAM(:,2),angleMatrix(:,1),angleMatrix(:,2));
 plot(finalFAM(:,1),finalFAM(:,2));
 axis([min(angleMatrix(:,1)) max(angleMatrix(:,1)) min(angleMatrix(:,2)) max(angleMatrix(:,2))]);
-title('Filtered HMS angle');
+title('Filtered HMS angle (O-Scope)');
 xlabel('time in sec');
 ylabel('Angle in degrees');
 grid on;
 %% System/Protocol Output graphing
 subplot(3,1,3);
 plot(protocol(:,1),protocol(:,2));
-title('Protocol HMS angle');
+title('Filtered HMS angle (Protocol)');
 xlabel('time in sec');
 ylabel('Angle in degrees');
 grid on;
@@ -79,12 +88,30 @@ grid on;
 %% Comparing Outputs on the Same Graph
 figure(4);
 plot(finalFAM(:,1),finalFAM(:,2),'-',protocol(:,1),protocol(:,2));
-title('Unfiltered HMS angle');
+title('Filtered HMS angle Comparison');
 xlabel('time in sec');
 ylabel('Angle in degrees');
 grid on;
-legend('MatLab Simulation HMS','Protocol Analyzer HMS')
+legend('MatLab Simulation HMS (Oscope)','Protocol Analyzer HMS')
 
+figure(5);
+subplot(2,1,1);
+plot(finalFAM(:,1),finalFAM(:,2));
+title('Filtered HMS angle Comparison');
+xlabel('time in sec');
+ylabel('Angle in degrees');
+grid on;
+legend('MatLab Simulation HMS (Oscope)')
+axis([10 25 40 55]);
+
+subplot(2,1,2);
+plot(protocol(:,1),protocol(:,2), '-');
+title('Filtered HMS angle Comparison');
+xlabel('time in sec');
+ylabel('Angle in degrees');
+grid on;
+legend('Protocol Analyzer HMS')
+axis([0 15 40 55]);
 
 
 %legend('Filtered','Unfiltered');
@@ -103,7 +130,7 @@ while dataPointer < numDatapoints
                                             % This is our reference when looking for sufficient movement to say the handle is actually moving.  
                                             % the "moving" threshold is defined by handleMovementThreshold in IWPUtilities
     handleMovement = 0;              % Set the handle movement to 0 (handle is not moving)
-	while handleMovement == 0
+	while handleMovement == 0 && dataPointer < numDatapoints
         [handleMovement] = HasTheHandleStartedMoving(angleAtRest, finalFAM(dataPointer,2));
    	    dataPointer = dataPointer + 1;
     end

@@ -1,0 +1,151 @@
+///////////////////////////// ACTUAL RECORDS @ 10HZ ///////////////////////////// 
+
+TEST_1
+SPEED: REGULAR 
+STROKES: 20
+BUCKET DEPTH: 16.5CM
+
+TEST_2
+SPEED: REGULAR 
+STROKES: 20
+BUCKET DEPTH: 14.8CM
+
+TEST_3
+SPEED: REGULAR 
+STROKES: 20
+BUCKET DEPTH: 14.0CM
+VOLUME: 7.49L
+
+//////////////////////////////////////////////////////
+
+TEST_1_SLOW
+SPEED: SLOW
+STROKES: 25
+BUCKET DEPTH: 16.3CM
+
+TEST_2_SLOW
+SPEED: SLOW
+STROKES: 27
+BUCKET DEPTH: 19.4XCM
+
+//////////////////////////////////////////////////////
+
+INACCURATE VOLUME ESTIMATES WITH ABOVE DATA DUE TO PUMP ROD RUBBING AGAINST MIDDLE PLATE
+FIXED WITH DATA BELOW
+
+//////////////////////////////////////////////////////
+
+TEST_1_FAST
+SPEED: FAST
+STROKES: 23
+BUCKET DEPTH: 19.3CM
+
+TEST_2_FAST
+SPEED: FAST
+STROKES: 10
+BUCKET DEPTH: 9.7CM
+
+//////////////////////////////////////////////////////
+
+TEST_4
+SPEED: REGULAR
+STROKES: 20
+BUCKET DEPTH: 16.5CM
+
+TEST_5
+SPEED: REGULAR
+STROKES: 25
+BUCKET DEPTH: 20.0CM
+
+//////////////////////////////////////////////////////
+
+///////////////////////////// ACTUAL RECORDS @ 102HZ ///////////////////////////// 
+
+TEST_102_1
+SPEED: REGULAR 
+STROKES: 15
+BUCKET DEPTH: 11.3CM
+
+TEST_102_2
+SPEED: REGULAR 
+STROKES: 20
+BUCKET DEPTH: 18.2CM
+
+TEST_102_3
+SPEED: REGULAR 
+STROKES: 15
+BUCKET DEPTH: 14.2CM
+
+TEST_102_4
+SPEED: REGULAR 
+STROKES: 25
+BUCKET DEPTH: 20.5CM
+
+//////////////////////////////////////////////////////
+
+TEST_102_1_SLOW
+SPEED: SLOW 
+STROKES: 20
+BUCKET DEPTH: 11.8CM
+
+TEST_102_2_SLOW
+SPEED: SLOW 
+STROKES: 25
+BUCKET DEPTH: 16.6CM
+
+TEST_102_3_SLOW
+SPEED: SLOW 
+STROKES: 30
+BUCKET DEPTH: 19.2CM
+
+
+//////////////////////////////////////////////////////
+
+TEST_102_1_FAST
+SPEED: FAST 
+STROKES: 23
+BUCKET DEPTH: 20.0CM
+
+TEST_102_2_FAST
+SPEED: FAST 
+STROKES: 26
+BUCKET DEPTH: 21.0CM
+
+TEST_102_3_FAST
+SPEED: FAST 
+STROKES: 17
+BUCKET DEPTH: 14.5CM
+
+//////////////////////////////////////////////////////
+
+TEST_102_1_JP
+SPEED: JUMP PUMPING 
+STROKES: 25
+BUCKET DEPTH: 11.5CM
+
+TEST_102_2_JP
+SPEED: JUMP PUMPING 
+STROKES: 30
+BUCKET DEPTH: 13.1CM
+
+TEST_102_3_JP
+SPEED: JUMP PUMPING 
+STROKES: 35
+BUCKET DEPTH: 15.2CM
+
+
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+ACTUAL PUMPING 
+STROKES: 
+BUCKET DEPTH: CM
+
