@@ -1,0 +1,24 @@
+
+
+ We are in the Priming Loop 
+We are in the fast pumping cluster
+Saved New Max Prime Distance 1.273
+Prime Distance 1.273
+    we are entering the volume loop   
+        Stopped pumping   -1
+We are in the fast pumping cluster
+Number of pumping strokes = 16
+handle movement in degrees 972.363
+handle moving for (sec) 21.943
+Volume Event = 7.255
+  for time slot 13
+
+ We are in the Leak Rate Loop 
+
+ There is no water. 
+Leak Rate (L/hour) = 70.836
+  - Leak Rate Long = 68.759
+Elapsed Time (sec): 6.606
+Saved new longest leak rate to EEProm 70.836
+Pumped (L): 7.255
+Leak Rate (L/hr) = 70.836
