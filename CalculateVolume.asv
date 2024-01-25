@@ -16,15 +16,15 @@ function [pumpLiters] = CalculateVolume(pumpingMovement,pumpSeconds)
 
     if (timePerRad >= 2.25)        %If determined to be in slow pumping cluster
         pumpLiters = (.0227*(timePerRad)+.2571)*pumpingMovement;
-        disp('We are in the slow pumping cluster');
+        display("We are in the slow pumping cluster");
     end
     if (timePerRad < 2.25 && timePerRad >= 1.75)    %If determined to be in medium pumping cluster
         pumpLiters = (.0128*(timePerRad)+.3208)*pumpingMovement;
-        disp('We are in the medium pumping cluster');
+        display("We are in the medium pumping cluster");
     end
     if (timePerRad < 1.75)             %If determined to be in fast pumping cluster
         pumpLiters = (.0106*(timePerRad)+.4138)*pumpingMovement;
-        disp('We are in the fast pumping cluster');        
+        display("We are in the fast pumping cluster");        
     end
    
 end
