@@ -84,8 +84,8 @@ dataPointer = i;  % this is where in the recorded data this pumping event ended
 [volumeEvent] = CalculateVolume(upStrokeExtract,pumpSeconds); % Find volume lifted
 
 if NumStrokes > 1
-    trialExcelTable = {'Number of Strokes', 'Extract Angle', 'Volume Pumped', 'Start Time', 'End Time'; NumStrokes,upStrokeExtract, volumeEvent, pumpStartTime,pumpSeconds};
-    writecell(trialExcelTable,'SimulatedTrialComparison_WC2_102.xls','Sheet','BPT_Reg_1','Range','B2');
+    %trialExcelTable = {'Number of Strokes', 'Extract Angle', 'Volume Pumped', 'Start Time', 'End Time'; NumStrokes,upStrokeExtract, volumeEvent, pumpStartTime,pumpSeconds};
+    %writecell(trialExcelTable,'SimulatedTrialComparison_WC2_102.xls','Sheet','BPT_Reg_1','Range','B2');
     message = sprintf(' SIM:\n Num Strokes = %0.d \n ExtractAngle = %0.2f degrees \n Volume Pumped = %0.2f L \n Started Pumping at %0.2f for %0.2f sec \n',NumStrokes,upStrokeExtract, volumeEvent, pumpStartTime,pumpSeconds);
     disp(message);
 end

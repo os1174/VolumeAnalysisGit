@@ -1,12 +1,12 @@
-clear all
-close all
+function = VolumeAlgorithmAnalysis(dataFile)
+
 
 %GET TIMESTAMP OF PEAK AND ACTUAL POSITION WHEN IT HIT PEAKS
 
 %PUT DIGILENT CHANNEL 1 ON Y AND CHANNEL 2 ON X
 
 %Specify Excel file that contains the raw data
-rawDataArray = readmatrix("BitnerPumpTest_102_3_JP_Scope.csv");
+rawDataArray = readmatrix(dataFile);
 %Specify the sampling rate used by the system.  For example 102 = 102Hz
 desSampleRate = 102;
 
@@ -140,8 +140,8 @@ while dataPointer < numDatapoints
     % The handle has started pumping
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     [upStrokeExtract, pumpSeconds, NumStrokes,dataPointer] = pumping(finalFAM,dataPointer);
- end
-
+end
+end
 
 
 
