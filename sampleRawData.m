@@ -12,7 +12,6 @@ function [sampledDataMatrix] = sampleRawData(rawDataArray,desSampleRate)
 atdStepSize = 3.3/1024;     %Voltage we are working with divided by 2^10
 deltaTime = 1/desSampleRate;
 nxtSampleTime = rawDataArray(1,1);  % this is an initial value              %%%%%%%%%%
-% rawDataArray(:,1) = rawDataArray(:,1) - nxtSampleTime; %fixing time skew from waveforms scope
 [r,c] = size(rawDataArray);
 i = 1;
 k = 1;
@@ -20,12 +19,12 @@ while i < r
     if rawDataArray(i,1) >= nxtSampleTime
         % sampledDataMatrix(k,1)=rawDataArray(i,1);
         sampledDataMatrix(k,1)= (k-1)*deltaTime;
-        sampledDataMatrix(k,2)= floor(rawDataArray(i,2)/atdStepSize);
-        sampledDataMatrix(k,3)= floor(rawDataArray(i,3)/atdStepSize);
+        sampledDataMatrix(k,2)= floor(rawDataArray(i,2)/atdStepSize) - 512;
+        sampledDataMatrix(k,3)= floor(rawDataArray(i,3)/atdStepSize) - 512;
         k = k+1;
         nxtSampleTime = nxtSampleTime + deltaTime;
     end
     i = i+1;
 end
-        
+
 end

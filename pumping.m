@@ -22,7 +22,7 @@ upStrokeExtract = 0;
 
 angleThresholdSmall = 0.1;  %number close to 0 to see if the handle is moving and ignoring accelerometer noise
 stopped_pumping_index = 0;  
-max_pause_while_pumping = 102;      %This is 1 second at our sampling rate
+max_pause_while_pumping = 10;      %This is 1 second at our sampling rate
 
 StrokeStarting = 1;         %Binary indicating that a new pumping stroke has begun
 NumStrokes = 0;             %The number of pumping strokes dispensing water
@@ -83,9 +83,9 @@ dataPointer = i;  % this is where in the recorded data this pumping event ended
 
 [volumeEvent] = CalculateVolume(upStrokeExtract,pumpSeconds); % Find volume lifted
 
-if NumStrokes > 2
+if NumStrokes > 1
     trialExcelTable = {'Number of Strokes', 'Extract Angle', 'Volume Pumped', 'Start Time', 'End Time'; NumStrokes,upStrokeExtract, volumeEvent, pumpStartTime,pumpSeconds};
-    writecell(trialExcelTable,'SimulatedTrialComparison.xls','Sheet','Trial_11_10_1','Range','B2');
+    writecell(trialExcelTable,'SimulatedTrialComparison_WC2_102.xls','Sheet','BPT_Reg_1','Range','B2');
     message = sprintf(' SIM:\n Num Strokes = %0.d \n ExtractAngle = %0.2f degrees \n Volume Pumped = %0.2f L \n Started Pumping at %0.2f for %0.2f sec \n',NumStrokes,upStrokeExtract, volumeEvent, pumpStartTime,pumpSeconds);
     disp(message);
 end
