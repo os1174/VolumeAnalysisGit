@@ -25,6 +25,7 @@ stopped_pumping_index = 0;
 max_pause_while_pumping = 10;      %This is 1 second at our sampling rate
 
 StrokeStarting = 1;         %Binary indicating that a new pumping stroke has begun
+strokeStartingAngle = 0;
 NumStrokes = 0;             %The number of pumping strokes dispensing water
 StrokeOver = 0;             %Binary indicating that the latest pumping stroke has ended
 MinStrokeRange = 10;        %degrees, roughly moving handle through 10"
@@ -56,6 +57,7 @@ while dispensing && i < numDatapoints   %we assume water is there
         if(angleCurrent < MaxUp-MinStrokeRange )    %A new stroke may be starting
             if(StrokeStarting==0)               %Yes this is the start of a new stroke
                 StrokeStarting = 1;
+                strokeStartingAngle = angleCurrent;
                 StrokeOver = 0;
                 MaxDown = angleCurrent;
             end
@@ -68,6 +70,8 @@ while dispensing && i < numDatapoints   %we assume water is there
             if(StrokeOver == 0)     %Yes the pumping stroke is complete
                 NumStrokes = NumStrokes + 1;
                 StrokeOver = 1;
+                message = sprintf('Stroke Number %0.d Start Angle = %0.2f, stop angle = %0.2f, delta angle = %0.2f \n', NumStrokes, strokeStartingAngle, angleCurrent, abs(strokeStartingAngle - angleCurrent));
+                disp(message);
                 StrokeStarting = 0;
                 MaxUp = angleCurrent;
             end

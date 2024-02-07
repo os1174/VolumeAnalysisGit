@@ -45,5 +45,6 @@ while i < r
     finalFAM(i,2) = angleSum;
     i = i + 1;
 end
-plot(finalFAM(:,2));
+
+%plot(finalFAM(:,2));
 end

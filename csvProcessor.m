@@ -1,7 +1,33 @@
 clear all
-clc all
+close all
+clc
 
-files = dir('C:\Users\opeas\OneDrive - Messiah University\000 ENGR415 Collab\300 Fall23\Volume Changes\VolumeAnalysisGit\BitnerPumpTests102/*.csv');
-for file = files
-    load(file.name)
+
+folder = 'C:\Users\opeas\OneDrive - Messiah University\000 ENGR415 Collab\300 Fall23\Volume Changes\VolumeAnalysisGit\BitnerPumpTests102\';
+testSampRate = 'BitnerPumpTest_102_';
+testNum_Speed = {'1_Fast'};   %,...        %fileVec is a cell
+    % '1_JP',...
+    % '1',...
+    % '1_Slow',...
+    % '2_Fast',...
+    % '2_JP',...
+    % '2',...
+    % '2_Slow',...
+    % '3_Fast',...
+    % '3_JP',...
+    % '3',...
+    % '3_Slow',...
+    % '4'};
+scope = '_Scope.csv';
+protocol = '_Protocol.txt';
+
+for i=1:13
+    name = [folder,testSampRate,testNum_Speed{i},scope];  %folder, testSampleRate, Number and speed, scope or protocol
+    display(testNum_Speed{i});
+    
+    %Run scope data through program
+    VolumeAlgorithmAnalysis(name)
 end
+
+
+%VolumeAlgorithmAnalysis('C:\Users\opeas\OneDrive - Messiah University\000 ENGR415 Collab\300 Fall23\Volume Changes\VolumeAnalysisGit\BitnerPumpTests102\BitnerPumpTest_102_1_Fast_Scope.csv')

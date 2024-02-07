@@ -1,4 +1,4 @@
-function = VolumeAlgorithmAnalysis(dataFile)
+function[] = VolumeAlgorithmAnalysis(dataFile)
 
 
 %GET TIMESTAMP OF PEAK AND ACTUAL POSITION WHEN IT HIT PEAKS
@@ -70,6 +70,7 @@ finalFAM = filterHMS(angleMatrix);
 % ylabel('Angle in degrees');
 % grid on;
 % axis([min(angleMatrix(:,1)) max(angleMatrix(:,1)) min(angleMatrix(:,2)) max(angleMatrix(:,2))]);
+
 % subplot(3,1,2);
 % %plot(finalFAM(:,1),finalFAM(:,2),angleMatrix(:,1),angleMatrix(:,2));
 % plot(finalFAM(:,1),finalFAM(:,2));
@@ -86,8 +87,8 @@ finalFAM = filterHMS(angleMatrix);
 % xlabel('time in sec');
 % ylabel('Angle in degrees');
 % grid on;
-% 
-% %% Comparing Outputs on the Same Graph
+
+%% Comparing Outputs on the Same Graph
 % figure(4);
 % plot(finalFAM(:,1),finalFAM(:,2),'-',protocol(:,1),protocol(:,2));
 % title('Filtered HMS angle Comparison');
@@ -95,17 +96,17 @@ finalFAM = filterHMS(angleMatrix);
 % ylabel('Angle in degrees');
 % grid on;
 % legend('MatLab Simulation HMS (Oscope)','Protocol Analyzer HMS')
-% 
-% figure(5);
-% subplot(2,1,1);
-% plot(finalFAM(:,1),finalFAM(:,2));
-% title('Filtered HMS angle Comparison');
-% xlabel('time in sec');
-% ylabel('Angle in degrees');
-% grid on;
-% legend('MatLab Simulation HMS (Oscope)')
-% axis([10 25 40 55]);
-% 
+ 
+figure(5);
+%subplot(2,1,1);
+plot(finalFAM(:,1),finalFAM(:,2));
+title('Filtered HMS angle Comparison');
+xlabel('time in sec');
+ylabel('Angle in degrees');
+grid on;
+legend('MatLab Simulation HMS (Oscope)')
+axis([10 25 40 55]);
+ 
 % subplot(2,1,2);
 % plot(protocol(:,1),protocol(:,2), '-');
 % title('Filtered HMS angle Comparison');
