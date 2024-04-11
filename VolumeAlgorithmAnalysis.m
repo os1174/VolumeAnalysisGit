@@ -1,4 +1,4 @@
-function[] = VolumeAlgorithmAnalysis(dataFile)
+function[volumeComparisonXLVAA] = VolumeAlgorithmAnalysis(dataFile)
 
 
 %GET TIMESTAMP OF PEAK AND ACTUAL POSITION WHEN IT HIT PEAKS
@@ -61,63 +61,6 @@ angleMatrix = calcAngle(sampledDataMatrix);
 % to clean up noise from shaky handle and collision with the stops
 finalFAM = filterHMS(angleMatrix);
 
-%% Simulation output graphing
-% figure(3);
-% subplot(3,1,1);
-% plot(angleMatrix(:,1),angleMatrix(:,2));
-% title('Unfiltered HMS angle (O-Scope)');
-% xlabel('time in sec');
-% ylabel('Angle in degrees');
-% grid on;
-% axis([min(angleMatrix(:,1)) max(angleMatrix(:,1)) min(angleMatrix(:,2)) max(angleMatrix(:,2))]);
-
-% subplot(3,1,2);
-% %plot(finalFAM(:,1),finalFAM(:,2),angleMatrix(:,1),angleMatrix(:,2));
-% plot(finalFAM(:,1),finalFAM(:,2));
-% axis([min(angleMatrix(:,1)) max(angleMatrix(:,1)) min(angleMatrix(:,2)) max(angleMatrix(:,2))]);
-% title('Filtered HMS angle (O-Scope)');
-% xlabel('time in sec');
-% ylabel('Angle in degrees');
-% grid on;
-
-%% System/Protocol Output graphing
-% subplot(3,1,3);
-% plot(protocol(:,1),protocol(:,2));
-% title('Filtered HMS angle (Protocol)');
-% xlabel('time in sec');
-% ylabel('Angle in degrees');
-% grid on;
-
-%% Comparing Outputs on the Same Graph
-% figure(4);
-% plot(finalFAM(:,1),finalFAM(:,2),'-',protocol(:,1),protocol(:,2));
-% title('Filtered HMS angle Comparison');
-% xlabel('time in sec');
-% ylabel('Angle in degrees');
-% grid on;
-% legend('MatLab Simulation HMS (Oscope)','Protocol Analyzer HMS')
- 
-figure(5);
-%subplot(2,1,1);
-plot(finalFAM(:,1),finalFAM(:,2));
-title('Filtered HMS angle Comparison');
-xlabel('time in sec');
-ylabel('Angle in degrees');
-grid on;
-legend('MatLab Simulation HMS (Oscope)')
-% axis([10 25 40 55]);
- 
-% subplot(2,1,2);
-% plot(protocol(:,1),protocol(:,2), '-');
-% title('Filtered HMS angle Comparison');
-% xlabel('time in sec');
-% ylabel('Angle in degrees');
-% grid on;
-% legend('Protocol Analyzer HMS')
-% axis([0 15 40 55]);
-
-
-%legend('Filtered','Unfiltered');
 
 % We now have the handle angle processed as it would be as it is evaluated
 % in real time by the system.
@@ -128,6 +71,9 @@ legend('MatLab Simulation HMS (Oscope)')
 % indicates that water is starting to flow.
 [numDatapoints,c] = size(finalFAM);
 dataPointer = 1;
+
+volumeComparisonXLVAA = 0;
+
 while dataPointer < numDatapoints
     angleAtRest = finalFAM(dataPointer,2);  % Get the angle of the pump handle to measure against.  
                                             % This is our reference when looking for sufficient movement to say the handle is actually moving.  
@@ -140,20 +86,11 @@ while dataPointer < numDatapoints
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % The handle has started pumping
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    [upStrokeExtract, pumpSeconds, NumStrokes,dataPointer] = pumping(finalFAM,dataPointer);
+    [upStrokeExtract, pumpSeconds, NumStrokes,dataPointer, volumeComparisonXL] = pumping(finalFAM,dataPointer);
+    if isequal(size(volumeComparisonXL), [2,7])
+        volumeComparisonXLVAA = volumeComparisonXL;
+    end
+    %debug disp(size(volumeComparisonXL));
 end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
 

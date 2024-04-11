@@ -1,4 +1,4 @@
-function [upStrokeExtract, pumpSeconds, NumStrokes, dataPointer] = pumping(finalFAM, startDatapointer)
+function [upStrokeExtract, pumpSeconds, NumStrokes, dataPointer, volumeComparisonXLpumping] = pumping(finalFAM, startDatapointer)
 % function [upStrokeExtract, pumpSeconds, NumStrokes, dataPointer] = pumping(finalFAM,startDatapointer)
 % Accumulates the downward movement of the handle and the timestamps of the
 % movement. This function recreates the calculation of the number of
@@ -54,7 +54,7 @@ while dispensing && i < numDatapoints   %we assume water is there
         stopped_pumping_index=0;   %they are still trying
     end
     if(angleDelta < 0)      %Determines direction of handle movement
-        upStrokeExtract = upStrokeExtract + (-1) * angleDelta;       %If the valve is moving downward, the movement is added to an
+        upStrokeExtract = upStrokeExtract + (-1) * angleDelta;       %If the valve is moving downward, the movement is added to upstrokeExtract
         if(angleCurrent < MaxUp-MinStrokeRange )    %A new stroke may be starting
             if(StrokeStarting==0)               %Yes this is the start of a new stroke
                 StrokeStarting = 1;
@@ -90,12 +90,25 @@ end
 pumpSeconds = (finalFAM(i, 1) - pumpStartTime) - 1;  % We wait 1 sec before we say we have stopped pumping
 dataPointer = i;  % this is where in the recorded data this pumping event ended
 
-[volumeEvent] = CalculateVolume(upStrokeExtract,pumpSeconds); % Find volume lifted
+volumeEvent = 0;
+volumeEventStroke = 0;
+
+[volumeEvent] = CalculateVolume(upStrokeExtract,pumpSeconds); % Find volume lifted based on increment movement
+[volumeEventStroke] = CalculateVolume(StrokeupStrokeExtract,pumpSeconds); % Find volume lifted
+volumeComparisonXLpumping = 0;
 
 if NumStrokes > 1
     %trialExcelTable = {'Number of Strokes', 'Extract Angle', 'Volume Pumped', 'Start Time', 'End Time'; NumStrokes,upStrokeExtract, volumeEvent, pumpStartTime,pumpSeconds};
     %writecell(trialExcelTable,'SimulatedTrialComparison_WC2_102.xls','Sheet','BPT_Reg_1','Range','B2');
+    
+    volumeComparisonXLpumping = {'Number of Strokes', 'Increment Extract Angle', 'Volume Pumped Increment', 'Stroke Extract Angle', 'Volume Pumped Stroke', 'Start Time', 'End Time'; NumStrokes,upStrokeExtract, volumeEvent, StrokeupStrokeExtract, volumeEventStroke, pumpStartTime,pumpSeconds};
     message = sprintf(' SIM:\n Num Strokes = %0.d \n ExtractAngle = %0.2f degrees \n Stroke Extract Angle = %0.2f degrees \n Volume Pumped = %0.2f L \n Started Pumping at %0.2f for %0.2f sec \n',NumStrokes,upStrokeExtract, StrokeupStrokeExtract, volumeEvent, pumpStartTime,pumpSeconds);
-    disp(message);
+    %disp(message);
+    %disp(size(volumeComparisonXLpumping));
+    if isequal(size(volumeComparisonXLpumping), [2,7])
+        volumeComparisonXL = volumeComparisonXLpumping;
+    end
+else
+    volumeComparisonXL = {0;0};
 end
 end
